@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="col-12 d-flex justify-content-center">
+    <div class="col-4 todo-block">
+      <h4 class="text-center mb-3 todo-header">Todo List</h4>
+      <div class="col-12 d-flex align-items-center justify-content-between">
+        <form [formGroup]="todoForm">
+          <input
+            class="col-8 todo-input"
+            placeholder="Enter text"
+            type="text"
+            name="text"
+            formControlName="todoName"
+          />
+          <button
+            type="submit"
+            (click)="submit()"
+            class="col-3 btn btn-primary"
+          >
+            Add
+          </button>
+        </form>
+      </div>
+
+      <!-- Todo List -->
+      <div class="todo-list mt-3">
+        <h5>Todo List</h5>
+        <ng-container *ngFor="let todo of todoTask; let i = index">
+          <div
+            class="col-12 d-flex todo-single align-center"
+            *ngIf="!todo.isCompleted"
+          >
+            <input
+              type="checkbox"
+              class="col-1 todo-checkbox"
+              (change)="toggleTodoStatus(i, todo._id)"
+            />
+            <p>{{ todo.todoName }}</p>
+            <button
+              type="button"
+              class="btn btn-outline-light text-danger col-1 del-btn ms-auto"
+              (click)="deleteTodo(todo._id)"
+            >
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Finished Todo -->
+      <div class="todo-list mt-3">
+        <h5>Finished Todo</h5>
+        <ng-container *ngFor="let todo of todoTask; let i = index">
+          <div
+            class="col-12 d-flex todo-single align-center"
+            *ngIf="todo.isCompleted"
+          >
+            <input
+              type="checkbox"
+              class="col-1 todo-checkbox"
+              (change)="toggleTodoStatus1(i, todo._id)"
+            />
+            <p>{{ todo.todoName }}</p>
+            <button
+              type="button"
+              class="btn btn-outline-light text-danger col-1 del-btn ms-auto"
+            >
+              <i class="bi bi-trash3"></i>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
